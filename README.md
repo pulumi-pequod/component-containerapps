@@ -28,7 +28,7 @@ Note: If no version is specified, the latest version will be used.
 
 ```
 packages:
-  containerapps: https://github.com/pulumi-pequod/component-containerapps@v1.2.0
+  containerapps: https://github.com/pulumi-pequod/component-containerapps@v1.3.0
 ``` 
 
 ## Use SDK in Program
