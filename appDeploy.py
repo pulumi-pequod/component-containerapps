@@ -19,6 +19,8 @@ class AppDeployArgs(TypedDict):
     """Sku for the insights workspace. Default: PerGB2018"""
     app_ingress_port: Optional[pulumi.Input[int]] 
     """Ingress port for the app. Default: 80"""
+    tags: Optional[pulumi.Input[dict]]
+    """Optional tags to apply to resources."""
 
 class AppDeploy(pulumi.ComponentResource):
     """
@@ -43,12 +45,14 @@ class AppDeploy(pulumi.ComponentResource):
         image_ref = args.get("image_ref")
         insights_sku = args.get("insights_sku") or "PerGB2018"
         app_ingress_port = args.get("app_ingress_port") or 80
+        tags = args.get("tags")
 
         workspace = operationalinsights.Workspace(
             f"{name}-loganalytics",
             resource_group_name=resource_group_name,
             sku=operationalinsights.WorkspaceSkuArgs(name=insights_sku),
             retention_in_days=30,
+            tags=tags,
             opts=pulumi.ResourceOptions(parent=self)
         )
 

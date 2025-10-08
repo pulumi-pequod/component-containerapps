@@ -17,6 +17,8 @@ class AppBuildDeployArgs(TypedDict):
     """Sku for the insights workspace. Default: PerGB2018"""
     app_ingress_port: Optional[pulumi.Input[int]] 
     """Ingress port for the app. Default: 80"""
+    tags: Optional[pulumi.Input[dict]]
+    """Optional tags to apply to resources."""
 
 class AppBuildDeploy(pulumi.ComponentResource):
     """
@@ -41,6 +43,7 @@ class AppBuildDeploy(pulumi.ComponentResource):
         platform = args.get("platform") or "linux/amd64"
         insights_sku = args.get("insights_sku") or "PerGB2018"
         app_ingress_port = args.get("app_ingress_port") or 80
+        tags = args.get("tags")
 
         image = AppImage(name, AppImageArgs(
             resource_group_name=resource_group_name,
@@ -57,7 +60,8 @@ class AppBuildDeploy(pulumi.ComponentResource):
             registry_password=image.registry_password,
             image_ref=image.image_ref,
             insights_sku=insights_sku,
-            app_ingress_port=app_ingress_port),
+            app_ingress_port=app_ingress_port,
+            tags=tags),
             opts=pulumi.ResourceOptions(parent=self)
         )
 
