@@ -7,19 +7,6 @@ This repo delivers a set of components to abstract the details related to:
 - Deploy Azure Container app using the docker image. 
 - Do both the image build and deployment as a single component.
 
-# Inputs
-
-* resource_group_name: The resource group in which the image registry should be deployed.
-* app_path: Path to the Dockerfile to build the app.
-* image_tag (Optional): Image tag to use. Default: latest
-* platform (Optional): The platform for the image. Default: linux/amd64
-* insights_sku (Optional): Sku for the insights workspace. Default: PerGB2018
-* app_ingress_port (Optional): Ingress port for the app. Default: 80
-
-# Outputs
-
-* container_app_fqdn: The DNS name for the container app.
-
 # Usage
 ## Specify Package in `Pulumi.yaml`
 
@@ -28,7 +15,7 @@ Note: If no version is specified, the latest version will be used.
 
 ```
 packages:
-  containerapps: https://github.com/pulumi-pequod/component-containerapps@v1.3.0
+  containerapps: https://github.com/pulumi-pequod/component-containerapps[@vX.Y.Z]
 ``` 
 
 ## Use SDK in Program
