@@ -20,6 +20,8 @@ class AppBuildDeployArgs(TypedDict):
     """Ingress port for the app. Default: 80"""
     tags: Optional[pulumi.Input[Dict[str, pulumi.Input[str]]]]
     """Optional: Resource tags to apply to all created resources"""
+    retention_in_days: Optional[pulumi.Input[int]]
+    """Optional: Log Analytics workspace retention in days. Default: 90"""
 
 
 class AppBuildDeploy(pulumi.ComponentResource):
@@ -47,6 +49,7 @@ class AppBuildDeploy(pulumi.ComponentResource):
         insights_sku = args.get("insights_sku") or "PerGB2018"
         app_ingress_port = args.get("app_ingress_port") or 80
         tags = args.get("tags")
+        retention_in_days = args.get("retention_in_days")
 
         image = AppImage(
             name,
@@ -71,6 +74,7 @@ class AppBuildDeploy(pulumi.ComponentResource):
                 insights_sku=insights_sku,
                 app_ingress_port=app_ingress_port,
                 tags=tags,
+                retention_in_days=retention_in_days,
             ),
             opts=pulumi.ResourceOptions(parent=self),
         )
